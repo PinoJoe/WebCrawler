@@ -1,10 +1,10 @@
 '''
 Created on 2018年2月24日
 
-@author: Jeo
+@author: Joe
 '''
 #coding:utf-8
-class UrlManager(object):
+class UrlManager():
     def __init__(self):
         self.new_urls = set()#未爬去的URL集合
         self.old_urls = set()#已爬取的URL集合

@@ -1,12 +1,12 @@
 '''
 Created on 2018Äê2ÔÂ24ÈÕ
 
-@author: Jeo
+@author: Joe
 '''
 #coding:utf-8
 import requests
 
-class HtmlDownloader(object):
+class HtmlDownloader():
 
     def download(self, url):
         if url is None:
