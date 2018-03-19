@@ -22,7 +22,7 @@ class HtmlParser():
         new_urls = self._get_new_urls(page_url, soup)
         new_data = self._get_new_data(page_url, soup)
         return new_urls, new_data
-    
+
     def _get_new_urls(self, page_url, soup):
         '''抽取新的URl集合
         :param page_url:下载页面的url
@@ -39,7 +39,7 @@ class HtmlParser():
             new_full_url = urlparse.urljoin(page_url, new_url)
             new_urls.add(new_full_url)
         return new_urls
-    
+
     def _get_new_data(self, page_url, soup):
         '''抽取有效数据
         :param page_url:下载页面的URL

@@ -1,9 +1,9 @@
+# -*- coding:utf-8 -*-
 '''
 Created on 2018Äê2ÔÂ24ÈÕ
 
 @author: Joe
 '''
-#coding:utf-8
 import requests
 
 class HtmlDownloader():
