@@ -1,56 +1,56 @@
+#coding:utf-8
 '''
-Created on 2018Äê2ÔÂ24ÈÕ
+Created on 2018å¹´2æœˆ24æ—¥
 
 @author: Joe
 '''
-#coding:utf-8
 import re
-import urlparse
-from bs4 import BeautifulSoup, soup
+from urllib.parse import urljoin
+from bs4 import BeautifulSoup
 
 class HtmlParser():
 
     def parser(self, page_url, html_cont):
-        '''ÓÃÓÚ½âÎöÍøÒ³ÄÚÈİ£¬³éÈ¡URLºÍÊı¾İ
-        :param page_url:ÏÂÔØÒ³ÃæµÄURL
-        :param html_cont:ÏÂÔØµÄÍøÒ³ÄÚÈİ
-        :return:·µ»ØURLºÍÊı¾İ
+        '''ç”¨äºè§£æç½‘é¡µå†…å®¹ï¼ŒæŠ½å–URLå’Œæ•°æ®
+        :param page_url:ä¸‹è½½é¡µé¢çš„URL
+        :param html_cont:ä¸‹è½½çš„ç½‘é¡µå†…å®¹
+        :return:è¿”å›URLå’Œæ•°æ®
         '''
         if page_url is None or html_cont is None:
             return
-        soup = BeautifulSoup(html_cont, 'html.parser', from_encoding='urf-8')
+        soup = BeautifulSoup(html_cont, 'html.parser')
         new_urls = self._get_new_urls(page_url, soup)
         new_data = self._get_new_data(page_url, soup)
         return new_urls, new_data
 
     def _get_new_urls(self, page_url, soup):
-        '''³éÈ¡ĞÂµÄURl¼¯ºÏ
-        :param page_url:ÏÂÔØÒ³ÃæµÄurl
+        '''æŠ½å–æ–°çš„URlé›†åˆ
+        :param page_url:ä¸‹è½½é¡µé¢çš„url
         :param soup:soup
-        :return:·µ»ØĞÂµÄUrl¼¯ºÏ
+        :return:è¿”å›æ–°çš„Urlé›†åˆ
         '''
         new_urls = set()
-        #³éÈ¡·ûºÏÒªÇóµÄa±ê¼Ç
-        links = soup.find_all('a', href=re.compile(r'/view/\d+\.htm'))
+        #æŠ½å–ç¬¦åˆè¦æ±‚çš„aæ ‡è®°
+        links = soup.find_all('a', href=re.compile(r'^((?!\.).)*/item/((?!\.).)*$'))
         for link in links:
-            #ÌáÈ¡hrefÊôĞÔ
+            #æå–hrefå±æ€§
             new_url = link['href']
-            #Æ´½Ó³ÉÍêÕûµÄÍøÖ·
-            new_full_url = urlparse.urljoin(page_url, new_url)
+            #æ‹¼æ¥æˆå®Œæ•´çš„ç½‘å€
+            new_full_url = urljoin(page_url, new_url)
             new_urls.add(new_full_url)
         return new_urls
 
     def _get_new_data(self, page_url, soup):
-        '''³éÈ¡ÓĞĞ§Êı¾İ
-        :param page_url:ÏÂÔØÒ³ÃæµÄURL
+        '''æŠ½å–æœ‰æ•ˆæ•°æ®
+        :param page_url:ä¸‹è½½é¡µé¢çš„URL
         :param soup:
-        :return:·µ»ØÓĞĞ§Êı¾İ
+        :return:è¿”å›æœ‰æ•ˆæ•°æ®
         '''
         data = {}
         data['url'] = page_url
         title = soup.find('dd',class_='lemmaWgt-lemmaTitle-title').find('h1')
         data['title'] = title.get_text()
         summary = soup.find('div', class_='lemma-summary')
-        #»ñÈ¡tagÖĞ°üº¬µÄËùÓĞÎÄ±¾ÄÚÈİ£¬°üº¬×ÓËïtagÖĞµÄÄÚÈİ£¬²¢½«½á¹û×÷ÎªUnicode×Ö·û´®·µ»Ø
+        #è·å–tagä¸­åŒ…å«çš„æ‰€æœ‰æ–‡æœ¬å†…å®¹ï¼ŒåŒ…å«å­å­™tagä¸­çš„å†…å®¹ï¼Œå¹¶å°†ç»“æœä½œä¸ºUnicodeå­—ç¬¦ä¸²è¿”å›
         data['summary'] = summary.get_text()
         return data

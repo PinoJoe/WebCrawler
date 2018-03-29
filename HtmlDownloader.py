@@ -1,6 +1,6 @@
-# -*- coding:utf-8 -*-
+# coding=utf-8
 '''
-Created on 2018Äê2ÔÂ24ÈÕ
+Created on 2018å¹´2æœˆ24æ—¥
 
 @author: Joe
 '''
@@ -11,7 +11,7 @@ class HtmlDownloader():
     def download(self, url):
         if url is None:
             return None
-        user_agent = 'Mozilla/4.0 (compatible; MSIE 5.5; Windows NT)'
+        user_agent = 'Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101 Firefox/52.0'
         headers = {'User-Agent':user_agent}
         r = requests.get(url, headers=headers)
         if r.status_code == 200:
