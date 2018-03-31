@@ -48,32 +48,32 @@ def url_manager_proc(self, url_q, conn_q, root_url):
         except BaseException as e:
             time.sleep(0.1)#延时休息
 
-    def result_solve_proc(self, result_q, conn_q, store_q):
-        while(True):
-            tyr:
-                if not result_q.empty():
-                    content = result_q.get(True)
-                    if content['new_urls']=='end'
-                        #结果分析进程接收通知然后结束！
-                        print('结果分析进程接收通知然后结束！')
-                        store_q.put('end')
-                        return
-                    conn_q.put(content['new_urls'])#url为set类型
-                    store_q.put(content['data'])#解析出来的数据为dict类型
-                else:
-                    time.sleep(0.1)#延时休息
-            excetp BaseException as e:
-                time.sleep(0.1)#延时休息
-
-    def store_proc(self, store_q):
-        output = DataOutput.DataOutput()
-        while True:
-            if not store_q.empty():
-                data = store_q.get()
-                if data=='end':
-                    print('存储进程接收通知然后结束！')
-                    output.output_end(output.filepath)
+def result_solve_proc(self, result_q, conn_q, store_q):
+    while(True):
+        tyr:
+            if not result_q.empty():
+                content = result_q.get(True)
+                if content['new_urls']=='end'
+                    #结果分析进程接收通知然后结束！
+                    print('结果分析进程接收通知然后结束！')
+                    store_q.put('end')
                     return
-                output.store_data(data)
+                conn_q.put(content['new_urls'])#url为set类型
+                store_q.put(content['data'])#解析出来的数据为dict类型
             else:
-                time.sleep(0.1)
+                time.sleep(0.1)#延时休息
+        excetp BaseException as e:
+            time.sleep(0.1)#延时休息
+
+def store_proc(self, store_q):
+    output = DataOutput.DataOutput()
+    while True:
+        if not store_q.empty():
+            data = store_q.get()
+            if data=='end':
+                print('存储进程接收通知然后结束！')
+                output.output_end(output.filepath)
+                return
+            output.store_data(data)
+        else:
+            time.sleep(0.1)
