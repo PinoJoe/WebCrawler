@@ -4,10 +4,13 @@ Created on 2018年2月24日
 
 @author: Joe
 '''
+import cPickle
+import hashlib
+
 class UrlManager():
     def __init__(self):
-        self.new_urls = set()#未爬去的URL集合
-        self.old_urls = set()#已爬取的URL集合
+        self.new_urls = self.load_progress('new_urls.txt')#未爬去的URL集合
+        self.old_urls = self.load_progress('old_urls.txt')#已爬取的URL集合
 
     def has_new_url(self):
         '''判断是否有未爬取的URL
@@ -20,7 +23,9 @@ class UrlManager():
         :return:
         '''
         new_url = self.new_urls.pop()
-        self.old_urls.add(new_url)
+        m = hashlib.md5
+        m.update(new_url)
+        self.old_urls.add(m.hexdigest()[8:-8])
         return new_url
 
     def add_new_url(self, url):
@@ -31,7 +36,10 @@ class UrlManager():
         '''
         if url is None:
             return
-        if url not in self.new_urls and url not in self.old_urls:
+        m = hashlib.md5()
+        m.update(url)
+        url_md5 = m.hexdigest()[8:-8]
+        if url not in self.new_urls and url_md5 not in self.old_urls:
             self.new_urls.add(url)
 
     def add_new_urls(self, urls):
@@ -55,3 +63,18 @@ class UrlManager():
         :return:
         '''
         return len(self.old_urls)
+
+    def load_progress(self, path):
+        '''
+        从本地文件加载进度
+        :param path:文件路径
+        :return:返回set集合
+        '''
+        print('[+]从文件加载进度:%s' % path)
+        try:
+            with open(path, 'rb') as f:
+                tmp = cPickle.load(f)
+                return tmp
+        except:
+            print('[!]无进度文件，创建:%' % path)
+        return set()
