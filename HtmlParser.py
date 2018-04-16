@@ -8,7 +8,7 @@ import re
 from urllib.parse import urljoin
 from bs4 import BeautifulSoup
 
-class HtmlParser():
+class HtmlParser:
 
     def parser(self, page_url, html_cont):
         '''用于解析网页内容，抽取URL和数据

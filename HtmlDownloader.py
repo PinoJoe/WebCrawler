@@ -6,7 +6,7 @@ Created on 2018年2月24日
 '''
 import requests
 
-class HtmlDownloader():
+class HtmlDownloader:
 
     def download(self, url):
         if url is None:

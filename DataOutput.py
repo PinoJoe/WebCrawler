@@ -3,7 +3,7 @@
 import codecs
 import time
 
-class DataOutput():
+class DataOutput:
 
     def __init__(self):
         self.filepath = 'baike_%s.html'%(time.strftime("%Y_%m_%d_%H_%M_%S", time.localtime()))
@@ -24,11 +24,14 @@ class DataOutput():
         '''
         fout = codecs.open(path, 'w', encoding='utf-8')
         fout.write("<html>")
+        fout.write("<head>")
+        fout.write('<meta http-equiv="content-type" content="text/html;charset=utf-8"')
+        fout.write("</head>")
         fout.write("<body>")
         fout.write("<table>")
         fout.close()
 
-    def output_html(self):
+    def output_html(self, path):
         '''
         将数据写入HTML文件中
         :param path:文件路径
@@ -36,9 +39,6 @@ class DataOutput():
         '''
         fout = codecs.open(path, 'a', encoding='utf-8')
         for data in self.datas:
-            fout.write("<head>")
-            fout.write('<meta http-equiv="content-type" content="text/html;charset=utf-8"')
-            fout.write("</head>")
             fout.write("<tr>")
             fout.write("<td>%s</td>"%data['url'])
             fout.write("<td>%s</td>"%data['title'])
