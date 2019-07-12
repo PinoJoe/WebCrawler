@@ -12,8 +12,8 @@
 * 下载器（Downloader）。下载器负责获取页面数据并提供给引擎，而后提供给Spider。
 * Spider。Spider是Scrapy用户编写用于分析Response并提取Item（即获取到的Item）或额外跟进的URL的类。每个Spider负责处理一个特定（或一些）网站。
 * Item Pipeline。Item Pipeline负责处理被Spider提取出来的Item。典型的处理有清理验证及持久化（例如存储到数据库中）。
-*下载中间件（Downloader middlewares）。下载器中间件是在引擎及下载器之间的特定钩子（specific hook），处理Downloader传递给引擎的Response。其提供了一个简便的机制，通过插入自定义代码来扩展Scrapy功能。
-*Spider中间件（Spider middlewares）。Spider中间件是在引擎及Spider之间的特定钩子（specific hook），处理Spider的输入（response）和输出（Items及Requests）。其提供了一个简便的机制，通过插入自定义代码来扩展Scrapy功能。<br>
+* 下载中间件（Downloader middlewares）。下载器中间件是在引擎及下载器之间的特定钩子（specific hook），处理Downloader传递给引擎的Response。其提供了一个简便的机制，通过插入自定义代码来扩展Scrapy功能。
+* Spider中间件（Spider middlewares）。Spider中间件是在引擎及Spider之间的特定钩子（specific hook），处理Spider的输入（response）和输出（Items及Requests）。其提供了一个简便的机制，通过插入自定义代码来扩展Scrapy功能。<br>
 　　一个成熟的爬虫框架包含的也是基础简单爬虫的各个模块。通过数据流的流向，可以清楚地看到Scrapyy的工作流程。Scrapy中的数据流由执行引擎控制，其过程如下：<br>
 　　1）引擎打开一个网站（open a domain），找到处理该网站的Spider并向该Spider请求第一个要爬取的URL。<br>
 　　2）引擎从Spider中获取到第一个要爬取的URL并通过调度器（Scheduler）以Request进行调度。<br>
