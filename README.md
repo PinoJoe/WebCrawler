@@ -2,8 +2,10 @@
 基础爬虫架构：1）爬虫调度器 ；2）URL管理器；3）HTML下载器；4）HTML解析器；5）数据存储器 
 
 # Scrapy
-　　Scrapy是一个用Python写的Crawler Framework，简单轻巧，并且非常方便。Scrapy使用Twisted这个异步网络库来处理网络通信，架构清晰，并且包含了各种中间件接口，可以灵活地完成各种需求。Scrapy整体架构如图所示。<br><br>
-![](https://github.com/PinoJoe/WebCrawler/img/Scrapy.png)<br><br>
+　　Scrapy是一个用Python写的Crawler Framework，简单轻巧，并且非常方便。Scrapy使用Twisted这个异步网络库来处理网络通信，架构清晰，并且包含了各种中间件接口，可以灵活地完成各种需求。Scrapy整体架构如图所示。
+<br><br>
+![](https://github.com/PinoJoe/WebCrawler/raw/master/img/Scrapy.png)
+<br><br>
 　　根据架构图介绍一下Scrapy中的各大组件及其功能：
 * Scrapy引擎（Engine）。引擎负责控制流在系统的所有组件中流动，并在相应动作发生时触发事件。
 * 调度器（Scheduler）。调度器从引擎接收Request并将它们入队，以便之后引擎请求request时提供给引擎。
