@@ -37,6 +37,7 @@ ROBOTSTXT_OBEY = True
 
 # Disable Telnet Console (enabled by default)
 #TELNETCONSOLE_ENABLED = False
+TELNETCONSOLE_ENABLED = TRUE
 
 # Override the default request headers:
 #DEFAULT_REQUEST_HEADERS = {
@@ -69,8 +70,17 @@ ROBOTSTXT_OBEY = True
 #}
 ITEM_PIPELINES = {
     'cnblogSpider.pipelines.CnblogspiderPipeline': 300,
+    'cnblogSpider.pipelines.MyImagesPipeline': 1,
 }
 
+IMAGES_STORE = './cnblogsimages'
+IMAGES_URLS_FIELD = 'cimage_urls'
+IMAGES_RESULT_FIELD = 'cimages'
+IMAGES_EXPIRES = 30
+IMAGES_THUMS = {
+    'small': (50, 50),
+    'big': (270, 270),
+}
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See https://doc.scrapy.org/en/latest/topics/autothrottle.html
 #AUTOTHROTTLE_ENABLED = True
